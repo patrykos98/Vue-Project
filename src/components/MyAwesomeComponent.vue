@@ -1,36 +1,47 @@
 <template>
   <div>
-    <h1>Price: {{price}}</h1>
-    <button @click="makeOrder">Make next order</button>
-    <p>Quantity:{{ quantity }}</p>
-    <p>Order total price: {{ totalPrice }}</p>
-    <p>Tax : {{ tax }}</p>
+    <p>
+     You have <strong>{{ shares }}</strong> shares and their value is
+     <strong>{{ sharesValue }}$</strong>, because share price is
+     <strong>{{ sharePrice }}$</strong>
+    </p>
+     <button @click="changeNumberOfShares(1)">Buy one share</button>
+     <button @click="changeNumberOfShares(5)">Buy five shares</button>
+     <button @click="changeNumberOfShares(-5)">Sell five shares</button>
+     <button @click="changeNumberOfShares(-1)">Sell one share</button>
+    
   </div>
 </template>
 
 <script>
-import {reactive,toRefs} from 'vue'
+import {ref, computed, watch} from 'vue'
 
 export default {
   name: 'MyAwesomeComponent',
   setup(){
 
-    const state = reactive({
-      quantity:0,
-      price:100,
-      totalPrice:0,
-      tax:0
-    })
+    const shares = ref(15);
+    const sharePrice = ref(20);
+    const sharesValue = computed(()=>{return shares.value*sharePrice.value});
 
-    function makeOrder(){
-      state.quantity++;
-      state.totalPrice = state.quantity * state.price;
-      state.tax=state.totalPrice * 0.23;
+    function changeNumberOfShares(number){
+      if(shares.value + number>=0){
+      shares.value+=number;}
     }
 
-    return {makeOrder, ...toRefs(state)};
+    watch(shares, (shares, prevshares)=>{
+      shares > prevshares ? getPrice(1,5) : getPrice(-5,-1)
+    })
+
+    function getPrice(min, max){
+      const priceDiff = Math.floor(Math.random()* (max-min)+min)
+      if(sharePrice.value+priceDiff>=0){
+      sharePrice.value+=priceDiff;}
+    }
+
+    return{shares, sharePrice, sharesValue,changeNumberOfShares};
   }
-}
+};
 </script>
 
 
