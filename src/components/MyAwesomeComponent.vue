@@ -1,5 +1,17 @@
 <template>
-  <div></div>
+  <div
+      class="single-item"
+    >
+      <p>Candidate {{ index + 1 }}</p>
+      <p>Name: {{ firstName }} {{ lastName }}</p>
+      <p>Age: {{ age }}</p>
+      <p v-if="item.party">Party: {{ item.party }}</p>
+      <div v-if="item.opinionPool">
+        Opinion pool:
+        <progress max="100" :value="item.opinionPool"></progress>
+        {{ item.opinionPool }}%
+      </div>
+    </div>
 </template>
 
 <script>
