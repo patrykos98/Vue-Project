@@ -1,15 +1,16 @@
 <template>
-  <div v-for="(candidate, index) in candidates" :key="candidate.id">
-    <p>Candidate {{ index + 1 }}</p>
-    <p>{{ candidate.lastName }}</p>
-  </div>
+  <ItemsList :items="candidates"/>
 </template>
 
 <script>
-import {ref} from 'vue'
+import {ref} from 'vue';
+import ItemsList from './items/ItemsList'
 
 export default {
   name: 'MyAwesomeComponent',
+  components:{
+    ItemsList
+  },
   setup(){
     
     const candidates = ref([
@@ -100,5 +101,6 @@ export default {
 };
 </script>
 <style lang="scss">
+
 </style>
 
