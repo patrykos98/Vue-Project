@@ -1,78 +1,104 @@
 <template>
-  <div>
-    <p>Masks: {{ masks }}</p>
-    <p v-if="masks>0">You can buy a mask!</p>
-    <p v-if="masks<=0">You can not buy a mask, it's out of stock...</p>
-    <button class="btn" @click="buyMask" 
-    v-bind:disabled="!masks" 
-    :class="{'btn--warning': masks>0 && masks<3}"
-    >Buy a mask</button>
-    <div>
-      <img :src="images[currentImage]" :alt="`Image ${currentImage+1}`" class="image">
-      <button class="btn" @click="changeImage" :disabled="currentImage >= images.length - 1">Change Image</button>
-    </div>
+  <div v-for="(candidate, index) in candidates" :key="candidate.id">
+    <p>Candidate {{ index + 1 }}</p>
+    <p>{{ candidate.lastName }}</p>
   </div>
 </template>
 
 <script>
-import {ref, reactive, toRefs} from 'vue'
+import {ref} from 'vue'
 
 export default {
   name: 'MyAwesomeComponent',
   setup(){
-    const masks =ref(5);
-
-    const styles = reactive({
-      btn:{
-        backgroundColor:'#17a2b8',
-        color:'white'
-      }
-    })
     
-    function buyMask(){
-      masks.value--;
-    }
+    const candidates = ref([
+      {
+        id: 1,
+        firstName: 'Robert',
+        lastName: 'Biedroń',
+        age: 44,
+        party: 'Wiosna Roberta Biedronia',
+        opinionPool: 4,
+      },
+      {
+        id: 2,
+        firstName: 'Krzysztof',
+        lastName: 'Bosak',
+        age: 37,
+        party: 'Konfederacja Wolność i Niepodległość',
+        opinionPool: 7,
+      },
+      {
+        id: 3,
+        firstName: 'Andrzej',
+        lastName: 'Duda',
+        age: 47,
+        party: null,
+        opinionPool: 49,
+      },
+      {
+        id: 4,
+        firstName: 'Szymon',
+        lastName: 'Hołownia',
+        age: 43,
+        party: null,
+        opinionPool: 22,
+      },
+      {
+        id: 5,
+        firstName: 'Marek',
+        lastName: 'Jakubiak',
+        age: 61,
+        party: 'Federacja dla Rzeczypospolitej',
+        opinionPool: null,
+      },
+      {
+        id: 6,
+        firstName: 'Małgorzata',
+        lastName: 'Kidawa-Błońska',
+        age: 63,
+        party: 'Platforma Obywatelska',
+        opinionPool: 5,
+      },
+      {
+        id: 7,
+        firstName: 'Władysław',
+        lastName: 'Kosiniak-Kamysz',
+        age: 38,
+        party: 'Polskie Stronnictwo Ludowe',
+        opinionPool: 12,
+      },
+      {
+        id: 8,
+        firstName: 'Mirosław',
+        lastName: 'Piotrowski',
+        age: 64,
+        party: 'Ruch Prawdziwa Europa',
+        opinionPool: null,
+      },
+      {
+        id: 9,
+        firstName: 'Paweł',
+        lastName: 'Tanajno',
+        age: 44,
+        party: null,
+        opinionPool: 1,
+      },
+      {
+        id: 10,
+        firstName: 'Stanisław',
+        lastName: 'Żółtek',
+        age: 64,
+        party: 'Kongres Nowej Prawicy',
+        opinionPool: null,
+      },
+    ]);
 
-    const images=ref([
-      'https://dziedziuch.samurajprogramowania.pl/projects/1-slider/images/1.jpg',
-      'https://dziedziuch.samurajprogramowania.pl/projects/1-slider/images/2.jpg',
-      'https://dziedziuch.samurajprogramowania.pl/projects/1-slider/images/3.jpg',
-      'https://dziedziuch.samurajprogramowania.pl/projects/1-slider/images/4.jpg',
-      'https://dziedziuch.samurajprogramowania.pl/projects/1-slider/images/5.jpg'
-    ])
-
-    const currentImage=ref(0);
-
-    function changeImage(){
-      currentImage.value++;
-    }
-
-    return {masks, buyMask, ...toRefs(styles), images, currentImage, changeImage}
+    return {candidates}
   }
 };
 </script>
 <style lang="scss">
-.btn{
-  color:#fff;
-  background-color: #369b6d;
-  border:none;
-  padding:5px 10px;
-  font-size:16px;
-  cursor:pointer;
-  transition: background-color 0.2s ease-in;
-  &--warning{
-    background-color: #ffc107;
-    color:'black'
-  }
-  &:disabled{
-    cursor:default;
-    background-color: #bd2130;
-  }
-}
- .image{
-  margin-top:50px;
-  width:300px;
-  display:block;
- }
 </style>
 
