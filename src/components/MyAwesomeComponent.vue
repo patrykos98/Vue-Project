@@ -1,6 +1,7 @@
 <template>
   <div>
-    <ChildComponent :textprops="text"/>  
+    <ChildComponent v-show="isShow" :textprops="text" @first-lesson="sendEvent"/> 
+    <p>{{ lesson }}</p> 
   </div>
 </template>
 
@@ -14,7 +15,11 @@ export default {
         const text = ref('Testujemy propsa :D');
         const liczba = ref(1);
         const isShow = true;
-        return { text, liczba, isShow };
+
+        let lesson=ref('')
+
+        const sendEvent= val =>{lesson.value=val}
+        return { text, liczba, isShow, lesson, sendEvent };
     },
     components: { ChildComponent }
 }
