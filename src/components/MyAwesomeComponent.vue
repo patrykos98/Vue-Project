@@ -5,6 +5,7 @@
     </div>
     <div class="to-do-elements">
        <input type="text" placeholder="What you need to do?">
+       <button @click="addElement">Dodaj</button>
     </div>
     
    </div>
@@ -19,9 +20,16 @@ export default {
     
   },
   setup() {
+    function addElement(){
+      const divElement=document.querySelector('to-do-elements');
+      //const liItem=document.createElement('li');
+      //divElement.appendChild(liItem);
+      console.log(divElement)
+      
+    }
     
 
-    return { };
+    return { addElement};
   },
 };
 </script>
